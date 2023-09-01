@@ -12,7 +12,12 @@ cloudinary.cloudinaryConnect();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(fileupload());
+app.use(
+  fileupload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+  })
+);
 app.use("/api/v1/upload", Upload);
 app.get("/", (req, res) => {
   res.json({ message: "ok" });
