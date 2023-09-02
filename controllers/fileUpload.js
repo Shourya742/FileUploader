@@ -3,10 +3,10 @@ const cloudinary = require("cloudinary").v2;
 exports.localFileUpload = async (req, res) => {
   try {
     const file = req.files.file;
-    console.log("File is here", file);
+
     const path =
       __dirname + "/files/" + Date.now() + "." + file.name.split(".").pop();
-    console.log("Path -> ", path);
+
     file.mv(path, (error) => {
       console.log(error);
     });
@@ -16,6 +16,10 @@ exports.localFileUpload = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+    res.status(400).json({
+      success: false,
+      message: "Something went wrong!!",
+    });
   }
 };
 
